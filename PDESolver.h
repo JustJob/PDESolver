@@ -22,7 +22,7 @@ public:
   const SymMatrix<T>& getA() const;
   const Vector<T>& getB() const;
   template<class U>
-  const Vector<T>& solve() const;
+  const Vector<T>& solve();
 private:
   void generateB();
   void generateA();

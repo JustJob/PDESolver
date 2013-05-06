@@ -47,7 +47,7 @@ const Vector<T>& PDESolver<T,lFunc,rFunc,bFunc,tFunc>::getB() const
 template<class T, double lFunc(double), double rFunc(double), 
          double bFunc(double), double tFunc(double)>
 template<class U>
-const Vector<T>& PDESolver<T,lFunc,rFunc,bFunc,tFunc>::solve() const
+const Vector<T>& PDESolver<T,lFunc,rFunc,bFunc,tFunc>::solve()
 {
   if(!m_solved)
   {
@@ -71,12 +71,13 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateB()
       m_B.at(index) = 0;
       if(i - 1 == 0)
         m_B.at(index) += bFunc(((float)j)/m_size);
-      if(i + 1 == 0)
+      if(i + 1 == m_size)
         m_B.at(index) += tFunc(((float)j)/m_size);
       if(j - 1 == 0)
         m_B.at(index) += lFunc(((float)i)/m_size);
-      if(j - 1 == 0)
+      if(j + 1 == m_size)
         m_B.at(index) += rFunc(((float)i)/m_size);
+      m_B.at(index) /= 4;
       index++;
     }
   }
@@ -100,6 +101,7 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateA()
     {
       m_A.at(i,i+1) = -.25;
     }
+    m_A.at(i,i) = 1;
   }
 }
 

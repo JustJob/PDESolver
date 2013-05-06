@@ -18,7 +18,7 @@ int main(int argc, char** argv)
   //   return 0;
   // }
 
-  cout.precision(2);
+  cout.precision(5);
   cout << std::fixed;
   cout << std::showpos;
   
@@ -28,24 +28,26 @@ int main(int argc, char** argv)
   cout << "B is : " << endl;
   cout << solver.getB() << endl;
 
+  cout << solver.solve<CholeskyDecomp<double> >() << endl;
+
 
   return 0;
 }
 
 
-double upper(double x)
+double right(double x)
 {
   return 1;
 }
-double lower(double x)
+double left(double x)
 {
   return 0;
 }
-double right(double x)
+double upper(double x)
 {
   return x * x * x;
 }
-double left(double x)
+double lower(double x)
 {
   return x * x * x;
 }
