@@ -41,22 +41,42 @@ template<class T, double lFunc(double), double rFunc(double),
          double bFunc(double), double tFunc(double)>
 void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateB()
 {
-  m_sol = Vector<T>((m_size - 1) * (m_size - 1));
+  m_B = Vector<T>((m_size - 1) * (m_size - 1));
   ulong index = 0;
   for(ulong i = 1; i < m_size; i++)
   {
     for(ulong j = 1; j < m_size; j++)
     {
-      m_sol[index] = 0;
+      m_B[index] = 0;
       if(i - 1 == 0)
-        m_sol[index] += bFunc(((float)j)/m_size);
+        m_B[index] += bFunc(((float)j)/m_size);
       if(i + 1 == 0)
-        m_sol[index] += tFunc(((float)j)/m_size);
+        m_B[index] += tFunc(((float)j)/m_size);
       if(j - 1 == 0)
-        m_sol[index] += lFunc(((float)i)/m_size);
+        m_B[index] += lFunc(((float)i)/m_size);
       if(j - 1 == 0)
-        m_sol[index] += rFunc(((float)i)/m_size);
+        m_B[index] += rFunc(((float)i)/m_size);
       index++;
     }
   }
 }
+
+
+template<class T, double lFunc(double), double rFunc(double), 
+         double bFunc(double), double tFunc(double)>
+void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateA()
+{
+  matSize = m_size*m_size;
+  m_A = SymMatrix<T>(matSize);
+
+  for(int i = 0;i<matSize;i++)
+  {
+    if((i+1)%m_size!=0)
+    {
+      m_A.at(i,i+1) = -.25;
+      m_A.at(i,i+m_size) = -.25;
+    }
+  }
+}
+
+
