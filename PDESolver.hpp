@@ -36,6 +36,16 @@ template<class T, double lFunc(double), double rFunc(double),
          double bFunc(double), double tFunc(double)>
 template<class U>
 Vector<T> PDESolver<T,lFunc,rFunc,bFunc,tFunc>::solve<U>() const;
+{
+  if(!m_solved)
+  {
+    U solver;
+    m_sol = solver(m_A,m_B);
+  }
+  return m_sol;
+
+
+}
 
 template<class T, double lFunc(double), double rFunc(double), 
          double bFunc(double), double tFunc(double)>
