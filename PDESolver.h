@@ -7,26 +7,22 @@
 #ifndef PDE_SOLVER
 #define PDE_SOLVER
 
-#include "Vector.h"
-#include "Matrix.h"
-#include "VectorNorm.h"
+#include "vector.h"
+#include "BaseMatrix.h"
 #include "InvalidMatrix.h"
-#include <cmath>
-
-const float EQUAL_THRESHOLD = 0.000001;
 
 template<class T, double lFunc(double), double rFunc(double), 
          double bFunc(double), double tFunc(double)>
 class PDESolver
 {
 public:
-  PDESolver(const ulong size = 0, const T lBound, const T rBound,
+  PDESolver(const ulong size, const T lBound, const T rBound,
             const T tBound, const T bBound);
   void resize(const ulong size);
   const SymMatrix<T>& getA() const;
   const Vector<T>& getB() const;
   template<class U>
-  const BaseMatrix<T>& solve<U>() const;
+  const Vector<T>& solve() const;
 private:
   void generateB();
   void generateA();

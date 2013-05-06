@@ -8,7 +8,7 @@
 #define MATRIX_H
 
 #include "BaseMatrix.h"
-#include "Vector.h"
+#include "vector.h"
 #include "InvalidMatrix.h"
 #include <iostream>
 
@@ -79,7 +79,7 @@ protected:
   virtual Vector<T> getCol(unsigned long i) const;
   //PRE: None
   //POST: creates a lower triagular matrix with no members set
-  Matrix() {}
+  Matrix() : data(NULL) {}
 
   unsigned long m_rows; //stores the number of rows in matrix
   unsigned long m_cols; //stores the number of columns in the matrix

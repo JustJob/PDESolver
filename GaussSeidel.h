@@ -7,7 +7,7 @@
 #ifndef GAUSS_SEIDEL_H
 #define GAUSS_SEIDEL_H
 
-#include "Vector.h"
+#include "vector.h"
 #include "Matrix.h"
 #include "VectorNorm.h"
 #include "InvalidMatrix.h"
@@ -25,7 +25,7 @@ public:
   // the matrix is found. The solution is said to be found when the distance 
   // from the previous iteration and current iteration is less than the
   // EQUAL_THRESHOLD
-  Vector<T> operator()(const Matrix<T>& m, const Vector<T>& sol) const;
+  Vector<T> operator()(const BaseMatrix<T>& m, const Vector<T>& sol) const;
 };
 
 #include "GaussSeidel.hpp"

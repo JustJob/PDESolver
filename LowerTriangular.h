@@ -9,7 +9,7 @@
 
 #include "Matrix.h"
 #include "BaseMatrix.h"
-#include "Vector.h"
+#include "vector.h"
 #include "InvalidVectorMath.h"
 #include "invalidIndex.h"
 #include "InvalidMatrix.h"

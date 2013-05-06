@@ -7,7 +7,7 @@
 #ifndef BASE_MATRIX_H
 #define BASE_MATRIX_H
 
-#include "Vector.h"
+#include "vector.h"
 
 template<class T>
 class BaseMatrix
@@ -39,6 +39,8 @@ public:
   //PRE: T objects must have operator- defined
   //POST: Subtracts rhs from the matrix and stores the result in current matrix
   virtual BaseMatrix<T>& operator-=(const BaseMatrix<T>& rhs) = 0;
+  //PRE: operator= must be defined on T objects
+  //POST: creates a deep copy of the current matrix
   virtual BaseMatrix<T>& operator=(const BaseMatrix<T>& rhs) = 0;
   //PRE: None
   //POST: returns the number of rows

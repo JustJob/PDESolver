@@ -10,7 +10,7 @@
 #include "SymMatrix.h"
 #include "UpperTriangular.h"
 #include "LowerTriangular.h"
-#include "Vector.h"
+#include "vector.h"
 
 template <class T>
 class CholeskyDecomp
