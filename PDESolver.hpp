@@ -66,15 +66,15 @@ template<class T, double lFunc(double), double rFunc(double),
          double bFunc(double), double tFunc(double)>
 void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateA()
 {
-  matSize = m_size*m_size;
+  matSize = (m_size-1)*(m_size-1);
   m_A = SymMatrix<T>(matSize);
 
   for(int i = 0;i<matSize;i++)
   {
-    if((i+1)%m_size!=0)
+    if((i+1)%(m_size-1)!=0)
     {
       m_A.at(i,i+1) = -.25;
-      m_A.at(i,i+m_size) = -.25;
+      m_A.at(i,i+(m_size-1)) = -.25;
     }
   }
 }
