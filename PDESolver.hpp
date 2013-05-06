@@ -90,11 +90,11 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::generateA()
   ulong matSize = (m_size-1)*(m_size-1);
   m_A = SymMatrix<T>(matSize);
 
-  for(ulong i = 0;i<matSize;i++)
+  for(ulong i = 0;i<matSize-1;i++)
   {
-    if((i+1)%(m_size-1)!=0)
+    m_A.at(i,i+1) = -.25;
+    if((i+1)%(m_size-1)!=0 && i<matSize-m_size)
     {
-      m_A.at(i,i+1) = -.25;
       m_A.at(i,i+(m_size-1)) = -.25;
     }
   }
