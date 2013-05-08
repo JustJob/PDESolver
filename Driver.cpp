@@ -12,26 +12,37 @@ int main(int argc, char** argv)
   MatrixEqualityTest();
   DenseMatrixMathTest();
 
-  // if(argc < 2)
-  // {
-  //   cout << "Tests ran but no input file entered, exiting..." << endl;
-  //   return 0;
-  // }
+  if(argc < 2)
+  {
+    cout << "No command entered (ts for timeseries and axb to solve..." << endl;
+    return 0;
+  }
+  if(strcmp(argv[1], "ts") == 0)
+  {
+    short dataPnts;
+    if(argc < 3)
+    {
+      cout << "No max size parameter entered. Enter one now: ";
+      cin >> dataPnts;
+    }
+    else
+    {
+      dataPnts = atoi(argv[2]);
+    }
+    generateTimeComparison(dataPnts);
+  }
+  else if(strcmp(argv[1], "axb") == 0)
+  {
+    if(argc < 4)
+    {
+      cout << "Not enough parameters to solve PDE, need mesh size and method" 
+           << endl;
+      exit(0);
+    }
+    if(strcmp(argv[4])
 
-  cout.precision(5);
-  cout << std::fixed;
-  cout << std::showpos;
-  
-  // cout << "A is : " << endl;
-  // cout << solver.getA() << endl;
-  // cout << "B is : " << endl;
-  // cout << solver.getB() << endl;
-
-  //solver.solve<GaussSeidel<double> >();
-  // myPDE solver(50, 0, 1, 0, 1);
-  // solver.solve<GaussSeidel<double> >();
-
-  generateTimeComparison();
+    cout << myPDE solver(meshSize, 0, 1, 0, 1);
+  }
 
   return 0;
 }
@@ -43,15 +54,12 @@ double getTime()
   return ((double)now.tv_usec)/1000000 + now.tv_sec;
 }
 
-void generateTimeComparison()
+void generateTimeComparison(short max)
 {
-  short iters;
-  cout << "enter iterations: ";
-  cin >> iters;
   ofstream out("timeAnal.csv");
   out << "Size,Method,Time" << endl;
   double start;
-  for(short i = 3; i <= iters; i++)
+  for(short i = 3; i <= max; i++)
   {
     myPDE solver1(i, 0, 1, 0, 1);
     myPDE solver2(i, 0, 1, 0, 1);

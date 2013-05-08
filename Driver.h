@@ -19,6 +19,7 @@
 #include <assert.h>
 #include <fstream>
 #include <sys/time.h>
+#include <stdlib.h>
 using namespace std;
 
 //PRE: None
@@ -41,7 +42,7 @@ double right(double x);
 double left(double x);
 double forcingFunc(double x, double y);
 double getTime();
-void generateTimeComparison();
+void generateTimeComparison(short max);
 
 typedef PDESolver<double, left, right, lower, upper, forcingFunc> myPDE;
 
