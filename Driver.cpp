@@ -22,16 +22,49 @@ int main(int argc, char** argv)
   cout << std::fixed;
   cout << std::showpos;
   
-  PDESolver<double, left, right, lower, upper> solver(4, 0, 1, 0, 1);
-  cout << "A is : " << endl;
-  cout << solver.getA() << endl;
-  cout << "B is : " << endl;
-  cout << solver.getB() << endl;
+  // cout << "A is : " << endl;
+  // cout << solver.getA() << endl;
+  // cout << "B is : " << endl;
+  // cout << solver.getB() << endl;
 
-  cout << solver.solve<CholeskyDecomp<double> >() << endl;
+  //solver.solve<GaussSeidel<double> >();
+  PDESolver<double, left, right, lower, upper> solver(50, 0, 1, 0, 1);
+  solver.solve<GaussSeidel<double> >();
 
+  // generateTimeComparison();
 
   return 0;
+}
+
+double getTime()
+{
+  timeval now;
+  gettimeofday(&now, NULL);
+  return ((double)now.tv_usec)/1000000 + now.tv_sec;
+}
+
+void generateTimeComparison()
+{
+  short iters;
+  cout << "enter iterations: ";
+  cin >> iters;
+  ofstream out("timeAnal.csv");
+  out << "Size,Method,Time" << endl;
+  double start;
+  for(short i = 3; i <= iters; i++)
+  {
+    PDESolver<double, left, right, lower, upper> solver1(i, 0, 1, 0, 1);
+    PDESolver<double, left, right, lower, upper> solver2(i, 0, 1, 0, 1);
+    cout << i << endl;
+
+    start = getTime();
+    solver1.solve<CholeskyDecomp<double> >();
+    out << i << ",CholeskyDecomp," << getTime() - start << endl;
+
+    start = getTime();
+    solver2.solve<GaussSeidel<double> >();
+    out << i << ",GaussSeidel," << getTime() - start << endl;
+  }
 }
 
 double right(double x)

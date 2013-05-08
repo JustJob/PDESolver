@@ -17,7 +17,6 @@ PDESolver<T,lFunc,rFunc,bFunc,tFunc>::PDESolver(const ulong size,
   m_rightBound = rBound;
   m_upperBound = tBound;
   m_lowerBound = bBound;
-  m_solved = false;
   generateB();
   generateA();
 }
@@ -30,7 +29,6 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc>::resize(const ulong size)
     m_size = size;
     generateB();
     generateA();
-    m_solved = false;
   }
 }
 
@@ -48,15 +46,10 @@ const Vector<T>& PDESolver<T,lFunc,rFunc,bFunc,tFunc>::getB() const
 
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T)>
 template<class U>
-const Vector<T>& PDESolver<T,lFunc,rFunc,bFunc,tFunc>::solve()
+const Vector<T> PDESolver<T,lFunc,rFunc,bFunc,tFunc>::solve() const
 {
-  if(!m_solved)
-  {
-    U solver;
-    m_sol = solver(m_A,m_B);
-    m_solved = true;
-  }
-  return m_sol;
+  U solver;
+  return solver(m_A,m_B);
 }
 
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T)>

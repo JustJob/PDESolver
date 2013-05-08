@@ -13,7 +13,7 @@
 #include "InvalidMatrix.h"
 #include <cmath>
 
-const float EQUAL_THRESHOLD = 0.000001;
+const float EQUAL_THRESHOLD = 0.0000001;
 
 template<class T>
 class GaussSeidel

@@ -8,44 +8,47 @@ template<class T>
 Vector<T> CholeskyDecomp<T>::operator()(const SymMatrix<T>& m, 
   const Vector<T>& sol) const
 {
-  Vector<T> retval(m.numRows());
+  ulong rows = m.numRows();
+  Vector<T> retval(rows);
+  T ki;
   
-  LowerTriangular<T> lower(m.numRows());
-  for(unsigned long k = 0; k < m.numRows(); k++)
+  LowerTriangular<T> lower(rows);
+  for(unsigned long k = 0; k < rows; k++)
   {
     for(unsigned long i = 0; i <= k; i++)
     {
-      lower.at(k, i) = m(k, i);
+      ki = m(k,i);
       for(unsigned long j = 0; j < i; j++)
-        lower.at(k, i) -= lower(i, j) * lower(k, j);
+        ki -= lower(i, j) * lower(k, j);
       if(i == k)
-        lower.at(k,i) = sqrt(lower(k,i));
+        ki = sqrt(ki);
       else
-        lower.at(k,i) /= lower(i,i);
+        ki /= lower(i,i);
+      lower.at(k,i) = ki;
     }
   }
   Matrix<T> upper(lower);
-  Vector<T> temp(m.numRows());
+  Vector<T> temp(rows);
   upper.transpose();
 
-  for(unsigned long i = 0; i < sol.size(); i++)
+  for(unsigned long i = 0; i < rows; i++)
   {
-    temp.at(i) = sol[i];
+    ki = sol[i];
     for(unsigned long j = 0; j < i; j++)
     {
-      temp.at(i) -= lower(i,j) * temp[j];
+      ki -= lower(i,j) * temp[j];
     }
-    temp.at(i) /= lower(i,i);
+    temp.at(i) = ki/lower(i,i);
   }
 
-  for(unsigned long i = sol.size(); i > 0; i--)
+  for(unsigned long i = rows; i > 0; i--)
   {
-    retval.at(i-1) = temp[i-1];
-    for(unsigned long j = sol.size(); j > i; j--)
+    ki = temp[i-1];
+    for(unsigned long j = rows; j > i; j--)
     {
-      retval.at(i-1) -= upper(i-1, j-1) * retval[j-1];
+      ki -= upper(i-1, j-1) * retval[j-1];
     }
-    retval.at(i-1) /= upper(i-1, i-1);
+    retval.at(i-1) = ki/upper(i-1, i-1);
   }
 
   return retval;

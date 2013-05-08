@@ -18,6 +18,7 @@
 #include "PDESolver.h"
 #include <assert.h>
 #include <fstream>
+#include <sys/time.h>
 using namespace std;
 
 //PRE: None
@@ -38,5 +39,7 @@ double upper(double x);
 double lower(double x);
 double right(double x);
 double left(double x);
+double getTime();
+void generateTimeComparison();
 
 #endif

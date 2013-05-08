@@ -35,7 +35,7 @@ public:
   //POST: solves the PDE using the operator() of class U. Creates a solution
   // and stores that solution in m_sol
   template<class U>
-  const Vector<T>& solve();
+  const Vector<T> solve() const;
 private:
   //PRE: None
   //POST: generates the b vector
@@ -45,10 +45,8 @@ private:
   void generateA();
   SymMatrix<T> m_A; //m_A stores the symetric A matrix used to solve this PDE
   Vector<T> m_B; //m_B stores the b vector in the Ax=b equation
-  Vector<T> m_sol; //m_sol stores the solution or the x in Ax=b
   ulong m_size; //the number of points between the bounds of the problem
                 //(m_size - 1)^2 is the size of the matrix and solution vector
-  bool m_solved; //keeps track if this PDE has been solved or not
   T m_leftBound; //the left bound of the problem
   T m_rightBound; //the right bound of the problem
   T m_upperBound; //upper bound of the problem
