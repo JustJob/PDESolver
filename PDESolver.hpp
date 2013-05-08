@@ -103,3 +103,38 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateA()
 }
 
 
+template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
+void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,string &method)
+{
+  ofstream pnts,up,down,left,right;
+  pnts.open("points"+method+string(m_size)+".dat");
+
+  up.open("up"+method+string(m_size)+".dat");
+  down.open("down"+method+string(m_size)+".dat");
+  left.open("left"+method+string(m_size)+".dat");
+  right.open("right"+method+string(m_size)+".dat");
+  
+  T val = (m_upperBound-m_lowerBound)/m_size;
+
+  for(int i = 0;i<m_size;i++)
+  {
+    up<<m_upperBound<<","<<val<<","<<tFunc(val)<<endl;
+    down<<m_lowerBound<<","<<val<<","<<tFunc(val)<<endl;
+    left<<val<<","<<m_leftBound<<","<<tFunc(val)<<endl;
+    right<<val<<","<<m_rightBound<<","<<tFunc(val)<<endl;
+  }
+
+  for(int i = 0;i<(m_size-1)*(m_size-1);i++)
+  {
+    T x = i/(m_size-1);
+    T y = i%(m_size-1);
+
+    pnts<<x*val<<","<<y*val<<","<<sol[i]<<endl;
+
+
+  }
+
+
+
+
+}

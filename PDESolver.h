@@ -36,6 +36,9 @@ public:
   // and stores that solution in m_sol
   template<class U>
   const Vector<T> solve() const;
+
+  void gnuPlotify(Vector<T>& sol,string &method);
+
 private:
   //PRE: None
   //POST: generates the b vector
