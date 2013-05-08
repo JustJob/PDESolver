@@ -12,7 +12,7 @@
 #include "InvalidMatrix.h"
 #include "InvalidBound.h"
 
-template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T)>
+template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
 class PDESolver
 {
 public:

@@ -39,7 +39,10 @@ double upper(double x);
 double lower(double x);
 double right(double x);
 double left(double x);
+double forcingFunc(double x, double y);
 double getTime();
 void generateTimeComparison();
+
+typedef PDESolver<double, left, right, lower, upper, forcingFunc> myPDE;
 
 #endif

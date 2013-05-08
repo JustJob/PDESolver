@@ -28,10 +28,10 @@ int main(int argc, char** argv)
   // cout << solver.getB() << endl;
 
   //solver.solve<GaussSeidel<double> >();
-  PDESolver<double, left, right, lower, upper> solver(50, 0, 1, 0, 1);
-  solver.solve<GaussSeidel<double> >();
+  // myPDE solver(50, 0, 1, 0, 1);
+  // solver.solve<GaussSeidel<double> >();
 
-  // generateTimeComparison();
+  generateTimeComparison();
 
   return 0;
 }
@@ -53,8 +53,8 @@ void generateTimeComparison()
   double start;
   for(short i = 3; i <= iters; i++)
   {
-    PDESolver<double, left, right, lower, upper> solver1(i, 0, 1, 0, 1);
-    PDESolver<double, left, right, lower, upper> solver2(i, 0, 1, 0, 1);
+    myPDE solver1(i, 0, 1, 0, 1);
+    myPDE solver2(i, 0, 1, 0, 1);
     cout << i << endl;
 
     start = getTime();
@@ -82,6 +82,10 @@ double upper(double x)
 double lower(double x)
 {
   return x * x * x;
+}
+double forcingFunc(double x, double y)
+{
+  return y;
 }
 
 void VectorMathTest()
