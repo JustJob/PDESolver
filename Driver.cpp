@@ -5,6 +5,9 @@
 // This file runs a driver that is used to test the matrix class.
 
 #include "Driver.h"
+#include <string>
+using namespace std;
+
 
 int main(int argc, char** argv)
 {
@@ -39,9 +42,11 @@ int main(int argc, char** argv)
            << endl;
       exit(0);
     }
-    if(strcmp(argv[4])
-
-    cout << myPDE solver(meshSize, 0, 1, 0, 1);
+    //if(strcmp(argv[4])
+  
+    myPDE solver(atoi(argv[2]), 0, 1, 0, 1);
+    Vector<double> solution = solver.solve<CholeskyDecomp<double> >();
+    solver.gnuPlotify(solution,string("Cholesky"));
   }
 
   return 0;

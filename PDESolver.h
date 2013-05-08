@@ -11,6 +11,11 @@
 #include "BaseMatrix.h"
 #include "InvalidMatrix.h"
 #include "InvalidBound.h"
+#include <sstream>
+#include <stdio.h>
+#include <fstream>
+#include <string>
+using namespace std;
 
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
 class PDESolver
@@ -37,7 +42,7 @@ public:
   template<class U>
   const Vector<T> solve() const;
 
-  void gnuPlotify(Vector<T>& sol,string &method);
+  void gnuPlotify(Vector<T>& sol,const string &method);
 
 private:
   //PRE: None

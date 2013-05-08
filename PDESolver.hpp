@@ -104,32 +104,38 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateA()
 
 
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
-void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,string &method)
+void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,const string &method)
 {
+  string size;
+  stringstream strStream;
+  strStream<<m_size;
+  strStream>>size;
+  
+  
   ofstream pnts,up,down,left,right;
-  pnts.open("points"+method+string(m_size)+".dat");
+  pnts.open(("points"+method+size+".dat").c_str());
 
-  up.open("up"+method+string(m_size)+".dat");
-  down.open("down"+method+string(m_size)+".dat");
-  left.open("left"+method+string(m_size)+".dat");
-  right.open("right"+method+string(m_size)+".dat");
+  up.open(("up"+method+size+".dat").c_str());
+  down.open(("down"+method+size+".dat").c_str());
+  left.open(("left"+method+size+".dat").c_str());
+  right.open(("right"+method+size+".dat").c_str());
   
   T val = (m_upperBound-m_lowerBound)/m_size;
 
-  for(int i = 0;i<m_size;i++)
+  for(unsigned long i = 0;i<m_size;i++)
   {
     up<<m_upperBound<<","<<val<<","<<tFunc(val)<<endl;
-    down<<m_lowerBound<<","<<val<<","<<tFunc(val)<<endl;
-    left<<val<<","<<m_leftBound<<","<<tFunc(val)<<endl;
-    right<<val<<","<<m_rightBound<<","<<tFunc(val)<<endl;
+    down<<m_lowerBound<<","<<val<<","<<bFunc(val)<<endl;
+    left<<val<<","<<m_leftBound<<","<<lFunc(val)<<endl;
+    right<<val<<","<<m_rightBound<<","<<rFunc(val)<<endl;
   }
 
-  for(int i = 0;i<(m_size-1)*(m_size-1);i++)
+  for(unsigned long i = 0;i<(m_size-1)*(m_size-1);i++)
   {
-    T x = i/(m_size-1);
-    T y = i%(m_size-1);
+    T y = i/(m_size-1);
+    T x = i%(m_size-1);
 
-    pnts<<x*val<<","<<y*val<<","<<sol[i]<<endl;
+    pnts<<x*val<<", "<<y*val<<", "<<sol[i]<<endl;
 
 
   }
