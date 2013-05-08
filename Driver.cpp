@@ -22,7 +22,7 @@ int main(int argc, char** argv)
   cout << std::fixed;
   cout << std::showpos;
   
-  PDESolver<double, left, right, lower, upper> solver(4, 0, 1, 1, 0);
+  PDESolver<double, left, right, lower, upper> solver(4, 0, 1, 0, 1);
   cout << "A is : " << endl;
   cout << solver.getA() << endl;
   cout << "B is : " << endl;
@@ -33,7 +33,6 @@ int main(int argc, char** argv)
 
   return 0;
 }
-
 
 double right(double x)
 {
