@@ -13,6 +13,9 @@ Vector<T>::Vector(const ulong p_size, ulong p_loffset, ulong p_roffset)\
   if(m_loffset + m_roffset == m_size)
     throw InvalidVectorMath("Can't have offsets overlap");
   m_data = new T[m_size - m_loffset - m_roffset];
+
+  for(ulong i = 0; i < m_size - m_loffset - m_roffset; i++)
+    m_data[i] = 0;
 }
 
 //this construtor makes a new copy of vector v

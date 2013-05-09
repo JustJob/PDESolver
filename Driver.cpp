@@ -32,7 +32,17 @@ int main(int argc, char** argv)
     {
       dataPnts = atoi(argv[2]);
     }
-    generateTimeComparison(dataPnts);
+    if(argc > 3)
+    {
+      if(strcmp(argv[3], "gs") == 0)
+        generateTimeComparison(dataPnts, GS);
+      else if(strcmp(argv[3], "cd") == 0)
+        generateTimeComparison(dataPnts, CHOL);
+      else if(strcmp(argv[3], "both") == 0)
+        generateTimeComparison(dataPnts, BOTH);
+      else
+        cout << "did not find an approriate method" << endl;
+    }
   }
   else if(strcmp(argv[1], "axb") == 0)
   {
@@ -59,24 +69,28 @@ double getTime()
   return ((double)now.tv_usec)/1000000 + now.tv_sec;
 }
 
-void generateTimeComparison(short max)
+void generateTimeComparison(short max, Method method)
 {
   ofstream out("timeAnal.csv");
   out << "Size,Method,Time" << endl;
   double start;
   for(short i = 3; i <= max; i++)
   {
-    myPDE solver1(i, 0, 1, 0, 1);
-    myPDE solver2(i, 0, 1, 0, 1);
     cout << i << endl;
-
-    start = getTime();
-    solver1.solve<CholeskyDecomp<double> >();
-    out << i << ",CholeskyDecomp," << getTime() - start << endl;
-
-    start = getTime();
-    solver2.solve<GaussSeidel<double> >();
-    out << i << ",GaussSeidel," << getTime() - start << endl;
+    myPDE solver1(i, 0, 1, 0, 1);
+    if(method == CHOL || method == BOTH)
+    {
+      start = getTime();
+      solver1.solve<CholeskyDecomp<double> >();
+      out << i << ",CholeskyDecomp," << getTime() - start << endl;
+    }
+    if(method == GS || method == BOTH)
+    {
+      myPDE solver2(i, 0, 1, 0, 1);
+      start = getTime();
+      solver2.solve<GaussSeidel<double> >();
+      out << i << ",GaussSeidel," << getTime() - start << endl;
+    }
   }
 }
 

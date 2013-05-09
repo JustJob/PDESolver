@@ -42,7 +42,8 @@ double right(double x);
 double left(double x);
 double forcingFunc(double x, double y);
 double getTime();
-void generateTimeComparison(short max);
+enum Method {BOTH, GS, CHOL};
+void generateTimeComparison(short max, Method m);
 
 typedef PDESolver<double, left, right, lower, upper, forcingFunc> myPDE;
 

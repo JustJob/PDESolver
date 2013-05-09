@@ -20,9 +20,16 @@ Vector<T> GaussSeidel<T>::operator()(const BaseMatrix<T>& m,
   }
   VectorNorm<T> norm(2);
   Vector<T> retval(m.numCols());
+  int i = 0;
+
+  for(ulong i = 0; i < retval.size(); i++)
+  {
+    retval.at(i) = 0.5; //initial guess
+  }
 
   do
   {
+    i++;
     prev = norm(retval);
     for(unsigned long i = 0; i < sol.size(); i++)
     {
@@ -33,6 +40,8 @@ Vector<T> GaussSeidel<T>::operator()(const BaseMatrix<T>& m,
       retval.at(i) /= m(i,i);
     }
   } while(abs(prev - norm(retval)) > EQUAL_THRESHOLD);
+
+  cout << "iterations was " << i << endl;
 
   return retval;
 }
