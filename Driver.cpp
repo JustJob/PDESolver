@@ -15,48 +15,47 @@ int main(int argc, char** argv)
   MatrixEqualityTest();
   DenseMatrixMathTest();
 
-  if(argc < 2)
+  if(argc < 4)
   {
-    cout << "No command entered (ts for timeseries and axb to solve..." << endl;
-    return 0;
+    cout << "Not enough command line arguments." << endl;
+    exit(0);
   }
+  Method method;
+  if(strcmp(argv[3], "gs") == 0)
+    method = GS;
+  else if(strcmp(argv[3], "cd") == 0)
+    method = CHOL;
+  else if(strcmp(argv[3], "both") == 0)
+    method = BOTH;
+  else
+  {
+    cout << "did not find an approriate method" << endl;
+    exit(0);
+  }
+
   if(strcmp(argv[1], "ts") == 0)
   {
     short dataPnts;
-    if(argc < 3)
-    {
-      cout << "No max size parameter entered. Enter one now: ";
-      cin >> dataPnts;
-    }
-    else
-    {
-      dataPnts = atoi(argv[2]);
-    }
-    if(argc > 3)
-    {
-      if(strcmp(argv[3], "gs") == 0)
-        generateTimeComparison(dataPnts, GS);
-      else if(strcmp(argv[3], "cd") == 0)
-        generateTimeComparison(dataPnts, CHOL);
-      else if(strcmp(argv[3], "both") == 0)
-        generateTimeComparison(dataPnts, BOTH);
-      else
-        cout << "did not find an approriate method" << endl;
-    }
+    dataPnts = atoi(argv[2]);
+    generateTimeComparison(dataPnts, method);
   }
   else if(strcmp(argv[1], "axb") == 0)
   {
-    if(argc < 4)
-    {
-      cout << "Not enough parameters to solve PDE, need mesh size and method" 
-           << endl;
-      exit(0);
-    }
-    //if(strcmp(argv[4])
-  
     myPDE solver(atoi(argv[2]), 0, 1, 0, 1);
-    Vector<double> solution = solver.solve<CholeskyDecomp<double> >();
-    solver.gnuPlotify(solution,string("Cholesky"));
+    if(method == CHOL)
+    {
+      Vector<double> solution = solver.solve<CholeskyDecomp<double> >();
+      solver.gnuPlotify(solution,string("Cholesky"));
+    }
+    else if(method == GS)
+    {
+      Vector<double> solution = solver.solve<GaussSeidel<double> >();
+      solver.gnuPlotify(solution,string("Gauss"));
+    }
+    else
+    {
+      cout << "Method was not approriate." << endl;
+    }
   }
 
   return 0;
@@ -92,6 +91,7 @@ void generateTimeComparison(short max, Method method)
       out << i << ",GaussSeidel," << getTime() - start << endl;
     }
   }
+  out.close();
 }
 
 double right(double x)

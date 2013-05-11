@@ -136,11 +136,10 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,const
     T x = i%(m_size-1);
 
     pnts<<x*val<<", "<<y*val<<", "<<sol[i]<<endl;
-
-
   }
-
-
-
-
+  pnts.close();
+  up.close();
+  down.close();
+  left.close();
+  right.close();
 }
