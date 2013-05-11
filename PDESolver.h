@@ -54,7 +54,7 @@ public:
   // graph in GNUPlot. The sol vector should be an ouput of the solve function
   // and it will be formatted correctly so that data points show up in the 
   // correct position on the graph
-  void gnuPlotify(Vector<T>& sol,const string &method);
+  void gnuPlotify(const Vector<T>& sol, const string &method) const;
 
 private:
   //PRE: None

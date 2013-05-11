@@ -102,8 +102,8 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateA()
 }
 
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
-void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,
-  const string &method)
+void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(
+  const Vector<T>& sol, const string &method) const
 {
   string size;
   stringstream strStream;
