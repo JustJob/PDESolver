@@ -17,6 +17,14 @@
 #include <string>
 using namespace std;
 
+//PDESolver is used to solve a partial differential equation using bounding 
+//functions and a forcing function. These functions are passed to as template 
+// parameters to PDESolver. 
+//  -lFunc is the left bounding function for the space
+//  -rFunc is the right bounding function for the space
+//  -tFunc is the top bounding function for the space
+//  -bFunc is the bottom bounding function for the space
+//  -force is the forcing function defined on x and y
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
 class PDESolver
 {
@@ -41,7 +49,11 @@ public:
   // and stores that solution in m_sol
   template<class U>
   const Vector<T> solve() const;
-
+  //PRE: None
+  //POST: creates 5 files that output data in a way that they can create a 3D
+  // graph in GNUPlot. The sol vector should be an ouput of the solve function
+  // and it will be formatted correctly so that data points show up in the 
+  // correct position on the graph
   void gnuPlotify(Vector<T>& sol,const string &method);
 
 private:

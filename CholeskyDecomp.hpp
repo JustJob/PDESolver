@@ -2,7 +2,7 @@
 // cs328 hw6
 // 4/2/2013
 
-// This file defines the Choleski Decomposition class.
+// This file defines the Cholesky Decomposition class.
 
 template<class T>
 Vector<T> CholeskyDecomp<T>::operator()(const SymMatrix<T>& m, 

@@ -81,7 +81,6 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateB()
   }
 }
 
-
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
 void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateA()
 {
@@ -102,15 +101,14 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::generateA()
   }
 }
 
-
 template<class T, T lFunc(T), T rFunc(T), T bFunc(T), T tFunc(T), T force(T,T)>
-void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,const string &method)
+void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,
+  const string &method)
 {
   string size;
   stringstream strStream;
   strStream<<m_size;
   strStream>>size;
-  
   
   ofstream pnts,up,down,left,right;
   pnts.open(("points"+method+size+".dat").c_str());
@@ -134,7 +132,6 @@ void PDESolver<T,lFunc,rFunc,bFunc,tFunc,force>::gnuPlotify(Vector<T>& sol,const
   {
     T y = i/(m_size-1);
     T x = i%(m_size-1);
-
     pnts<<x*val<<", "<<y*val<<", "<<sol[i]<<endl;
   }
   pnts.close();

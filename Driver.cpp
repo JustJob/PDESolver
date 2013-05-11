@@ -94,23 +94,27 @@ void generateTimeComparison(short max, Method method)
   out.close();
 }
 
-double right(double x)
+double right(double)
 {
   return 1;
 }
-double left(double x)
+
+double left(double)
 {
   return 0;
 }
+
 double upper(double x)
 {
   return x * x * x;
 }
+
 double lower(double x)
 {
   return x * x * x;
 }
-double forcingFunc(double x, double y)
+
+double forcingFunc(double, double y)
 {
   return y;
 }
