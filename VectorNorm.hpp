@@ -1,6 +1,6 @@
 /*
-Justin O'Brien
-CS328 HW2
+Justin O'Brien and Matt Martin
+CS328 Final Project
 02/17/2013
 
 This file declares the VectorNorm class and operators which are friends of it.

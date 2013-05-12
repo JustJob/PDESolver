@@ -1,8 +1,8 @@
-// Justin O'Brien
-// cs328 hw6
+// Justin O'Brien and Matt Martin
+// CS328 Final Project
 // 4/2/2013
 
-// This file declares the Cholesky Decomposition class.
+// This file declares the Choleski Decomposition class.
 
 #ifndef CHOLESKY_DECOMP_H
 #define CHOLESKY_DECOMP_H

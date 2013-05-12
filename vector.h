@@ -1,5 +1,5 @@
-//Justin O'Brien
-//CS328 Assignment 6
+//Justin O'Brien and Matt Martin
+//CS328 Final Project
 //Instructor: Clayton Price
 //Date: 02/25/2013
 //This file defines the vector class and operators which are friends of it.

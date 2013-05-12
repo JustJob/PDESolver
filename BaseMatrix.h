@@ -1,5 +1,5 @@
-// Justin O'Brien
-// cs328 hw6
+// Justin O'Brien and Matt Martin
+// CS328 Final Project
 // 4/2/2013
 
 // This file declares the Base Matrix abstract class.
